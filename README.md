@@ -1,8 +1,8 @@
-# stm8ef-modular-build
+# STM8L051LED
 
 [![Travis-CI](https://travis-ci.org/TG9541/stm8ef-modular-build.svg)](https://travis-ci.org/TG9541/stm8ef-modular-build)
 
-This repository is at the same time a demonstrator and a template for the [STM8 eForth](https://github.com/TG9541/stm8ef) Modular Build feature. implements board support for a [simple demo device](https://github.com/TG9541/stm8ef-modular-build/tree/master/STM8L051F3): board specific setting are entirely in the board support folder (`STM8L051F3` in the example) and STM8 eForth dependencies are taken care of by the `Makefile`.
+This repository is at the same time a demonstrator and a template for the [STM8 eForth](https://github.com/TG9541/stm8ef) Modular Build feature. implements board support for a [simple demo device](https://github.com/TG9541/stm8l051led/tree/master/STM8L051F3): board specific setting are entirely in the board support folder (`STM8L051F3` in the example) and STM8 eForth dependencies are taken care of by the `Makefile`.
 
 Building the code can be done manually (on Linux make sure that Python and SDCC are installed) or automatically wuth Travis-CI.
 
