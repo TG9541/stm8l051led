@@ -3,12 +3,13 @@
 ; Clock: HSI (no crystal)
 
         HALF_DUPLEX      = 0    ; Use UART in half duplex mode
-        HAS_TXUART       = 1    ; No UART TXD, word TX!
-        HAS_RXUART       = 1    ; No UART RXD, word ?RX
-        HAS_TXSIM        = 0    ; Enable TxD via GPIO/TIM4, word TXGP!
-        HAS_RXSIM        = 0    ; Enable RxD via GPIO/TIM4, word ?RXGP
+        HAS_TXUART       = 2    ; UART TXD, word TX!
+        HAS_RXUART       = 2    ; UART RXD, word ?RX
+        HAS_RXSIM        = 1    ; Enable RxD via GPIO/TIM4, word ?RXGP
+        HAS_TXSIM        = 1    ; Like HAS_RXSIM, word TXGP!, use for console if > HAS_TXUART
+        PSIM     = PORTC        ; Port for UART simulation
         PNRX             = 0    ; Port GPIO# for HAS_RXDSIM
-        PNTX             = 0    ; Port GPIO# for HAS_TXDSIM
+        PNTX             = 1    ; Port GPIO# for HAS_TXDSIM
 
         EMIT_BG  = DROP         ; 7S-LED background EMIT vector
         QKEY_BG  = ZERO         ; Board keys background QKEY vector

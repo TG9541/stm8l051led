@@ -1,3 +1,5 @@
+#define STM8L
+
 #define INTVEC_TLI            0
 #define INTVEC_FLASH          1
 #define INTVEC_DMA1_01        2

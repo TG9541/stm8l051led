@@ -59,7 +59,7 @@ binary: depend
 depend:
 	if [ ! -d "out" ]; then \
 		curl -# -L -O ${STM8EF_URL}; \
-		unzip -q -o ${STM8EF_BIN} -x out/*; \
+		unzip -q -n -o ${STM8EF_BIN} -x out/*; \
 		unzip -q -o ${STM8EF_BIN} out/${STM8EF_BOARD}/*; \
 		rm ${STM8EF_BIN}; \
 	fi
@@ -70,7 +70,7 @@ term:
 
 clean:
 	rm -rf target docs lib mcu out inc tools
-	rm -f forth.asm forth.h forth.mk main.c STM8S103.efr STM8S105.efr
+	rm -f forth.asm forth.h forth.mk STM8S103.efr STM8S105.efr
 	rm -f simload depend
 
 else
