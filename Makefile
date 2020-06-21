@@ -59,7 +59,7 @@ binary: depend
 depend:
 	if [ ! -d "out" ]; then \
 		curl -# -L -O ${STM8EF_URL}; \
-		unzip -q -n -o ${STM8EF_BIN} -x out/*; \
+		unzip -q -n ${STM8EF_BIN} -x out/*; \
 		unzip -q -o ${STM8EF_BIN} out/${STM8EF_BOARD}/*; \
 		rm ${STM8EF_BIN}; \
 	fi
