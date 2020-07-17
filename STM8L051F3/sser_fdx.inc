@@ -1,6 +1,9 @@
 ;--------------------------------------------------------
 ;       STM8EF for STM8S (Value line and Access Line devices)
 ;       Simulated serial I/O - two GPIOs - Full Duplex
+;
+;       NOTE: this variant supersedes inc/sser_fdx.inc
+;             - look for "inverted TX"
 ;--------------------------------------------------------
 
         .ifne   HAS_TXSIM ;+ HAS_RXSIM
