@@ -12,6 +12,7 @@
         RamByte TIM4TXREG       ; TIM4 TX transmit buffer and shift register
         RamByte TIM4RXREG       ; TIM4 RX shift register
         RamByte TIM4RXBUF       ; TIM4 RX receive buffer
+        RamByte TIM4RXFLAG      ; TIM4 RX receive flag
         .endif
 
         .ifne   SERPRIOTIM
@@ -35,8 +36,14 @@ QRX:
         .endif
 QRXP:
         CLR     A
-        EXG     A,TIM4RXBUF     ; read and consume char
-        JP      ATOKEY
+        EXG     A,TIM4RXFLAG    ; read and consume char
+        TNZ     A
+        JRNE    0$
+        JP      ZERO
+0$:
+        LD      A,TIM4RXBUF     ; read char
+        CALL    ASTOR
+        JP      MONE
         .endif
 
         .ifne   HAS_TXSIM
@@ -112,11 +119,13 @@ _EXTI7_IRQHandler:
         MOV     TIM4RCNT,#9     ; set sequence counter for RX
 
         ; Set-up Rx sampling at quarter bit time (compromise with TX)
-        MOV     TIM4_CNTR,#(CTIM4ARR/4)
+        MOV     TIM4_CNTR,#(CTIM4ARR/2)
         BRES    TIM4_SR,#0      ; clear TIM4 UIF
         BSET    TIM4_IER,#0     ; enable TIM4 interrupt
         IRET
         .endif
+
+        RamWord TSTAMP          ; "TSTAMP" TIM2 counter at end of receive
 
         .globl _TIM4_IRQHandler
 _TIM4_IRQHandler:
@@ -134,6 +143,13 @@ _TIM4_IRQHandler:
 
         ; Receive sequence complete
         MOV     TIM4RXBUF,TIM4RXREG ; save result
+        CLR     TIM4RXFLAG
+        CPL     TIM4RXFLAG
+
+        ; Record timestamp for synchronization with sender cadence
+        MOV     TSTAMP  ,TIM2_CNTRH
+        MOV     TSTAMP+1,TIM2_CNTRL
+
         BSET    PSIM+CR2,#PNRX  ; enable PNRX external interrupt
         ; fall through
 
